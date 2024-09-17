@@ -19,16 +19,21 @@ import { FirebaseService } from './core/services/firebase.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  constructor(private firebaseService: FirebaseService) {}
 
-  constructor(private firebaseService:FirebaseService){}
-
-   getData() {
-    this.firebaseService.getData()
+  getData() {
+    this.firebaseService.getData();
   }
 
   @ViewChild('writeInputValue') writeInputValue!: ElementRef;
 
-   setData() {
-   this.firebaseService.setData(this.writeInputValue)
+  setData() {
+    this.firebaseService.setData(this.writeInputValue);
+  }
+
+  @ViewChild('csvInput') csvInput!: ElementRef;
+
+  public readCSV() {
+    this.firebaseService.readCSV(this.csvInput.nativeElement.files[0]);
   }
 }
