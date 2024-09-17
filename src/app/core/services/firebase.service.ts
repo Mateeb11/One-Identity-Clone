@@ -8,6 +8,8 @@ import {
   setDoc,
   collection,
 } from 'firebase/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class FirebaseService {
    private db = getFirestore(this.app);
    private dbValue:string=''
 
-  constructor() { }
+  constructor(private angularFirestore:AngularFirestore) { }
 
   async getData() {
     const docRef = doc(this.db, 'Test', 'TestName');
@@ -40,6 +42,16 @@ export class FirebaseService {
     });
 
     console.log(`Write value = ${writeInputValue.nativeElement.value}`);
+  }
+
+  getMailBoxes(){
+    return this.angularFirestore
+    .collection("MailBox")
+    .snapshotChanges();
+  }
+
+  createMailBox(){
+    return 
   }
 
 

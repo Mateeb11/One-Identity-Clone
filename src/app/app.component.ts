@@ -7,9 +7,10 @@ import {
   collection,
 } from 'firebase/firestore';
 
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FirebaseService } from './core/services/firebase.service';
+import { MailBoxInterface } from './features/admin/models/mailBox.interface';
 
 @Component({
   selector: 'app-root',
@@ -18,17 +19,27 @@ import { FirebaseService } from './core/services/firebase.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  constructor(private firebaseService: FirebaseService) {}
 
-  constructor(private firebaseService:FirebaseService){}
+  mailBoxes: any = [];
+  ngOnInit(): void {
+    this.firebaseService.getMailBoxes().subscribe((res) => {
+      this.mailBoxes = res.map((m) => {
+        return {
+          ...(m.payload.doc.data() as {}),
+        };
+      });
+    });
+  }
 
-   getData() {
-    this.firebaseService.getData()
+  getData() {
+    this.firebaseService.getData();
   }
 
   @ViewChild('writeInputValue') writeInputValue!: ElementRef;
 
-   setData() {
-   this.firebaseService.setData(this.writeInputValue)
+  setData() {
+    this.firebaseService.setData(this.writeInputValue);
   }
 }

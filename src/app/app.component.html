@@ -332,5 +332,10 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- console.log() -->
+
+@for(mailBox of mailBoxes; track mailBox.id ){
+ {{ mailBox.isActive}}
+}
 
 <router-outlet />
