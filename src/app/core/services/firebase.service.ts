@@ -7,6 +7,8 @@ import {
   getDoc,
   setDoc,
   collection,
+  query,
+  getDocs,
 } from 'firebase/firestore';
 
 import { Papa } from 'ngx-papaparse';
@@ -22,15 +24,21 @@ export class FirebaseService {
   constructor(private papa: Papa) {}
 
   async getData() {
-    const docRef = doc(this.db, 'Test', 'TestName');
-    const docSnap = await getDoc(docRef);
+    const mailBoxQ = query(collection(this.db, 'MailBox'));
+    const adsQ = query(collection(this.db, 'ADSAccount'));
 
-    if (docSnap.exists()) {
-      console.log('Document data:', docSnap.data());
-      this.dbValue = docSnap.data()['Name'];
-    } else {
-      console.log('No such document!');
-    }
+    console.log('MailBox Collection\n---------------------');
+    const mailBoxSnapshot = await getDocs(mailBoxQ);
+    mailBoxSnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, ' => ', doc.data());
+    });
+    console.log('ADSAccount Collection\n---------------------');
+    const adsSnapshot = await getDocs(adsQ);
+    adsSnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, ' => ', doc.data());
+    });
   }
 
   async setData(writeInputValue: any) {
