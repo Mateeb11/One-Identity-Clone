@@ -233,6 +233,9 @@
       <br />
       <input #writeInputValue type="text" />
       <button (click)="setData()">Write Firebase Data</button>
+      <br />
+      <input #csvInput type="file" />
+      <button (click)="readCSV()">Upload CSV</button>
     </div>
     <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">
@@ -334,8 +337,7 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- console.log() -->
 
-@for(mailBox of mailBoxes; track mailBox.id ){
- {{ mailBox.isActive}}
-}
+
 
 <router-outlet />
+<app-admin/>

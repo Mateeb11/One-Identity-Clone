@@ -1,0 +1,22 @@
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Active</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(adRecord of adRecords; track adRecord; let i = $index){
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>{{ adRecord.fullName }}</td>
+        <td>{{ adRecord.email }}</td>
+        <td>{{ adRecord.isActive }}</td>
+        <td class="text-center"> <button  class="btn btn-outline-danger text-center" (click)="deleteAdRecord(adRecord.id)">x</button></td>
+      </tr>
+      }
+    </tbody>
+  </table>

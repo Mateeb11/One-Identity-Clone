@@ -1,0 +1,22 @@
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Mobily Employee</th>
+        <th scope="col">Quota</th>
+        <th scope="col">Active</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(mailBox of mailBoxes; track mailBox ; let i = $index){
+      <tr>
+        <td>{{ i + 1 }}</td>
+        <td>{{ mailBox.isCompanyEmployee }}</td>
+        <td>{{ mailBox.quota }}</td>
+        <td>{{ mailBox.isActive }}</td>
+        <td class="text-center"> <button  class="btn btn-outline-danger text-center" (click)="deleteMailBox(mailBox.id)">x</button></td>
+      </tr>
+      }
+    </tbody>
+  </table>

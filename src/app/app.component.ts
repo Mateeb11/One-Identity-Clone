@@ -11,27 +11,25 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FirebaseService } from './core/services/firebase.service';
 import { MailBoxInterface } from './features/admin/models/mailBox.interface';
+import { ADAccountInterface } from './features/admin/models/adAccount.interface';
+import { AdminComponent } from './features/admin/admin.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,AdminComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   constructor(private firebaseService: FirebaseService) {}
 
-  mailBoxes: any = [];
+  
   ngOnInit(): void {
-    this.firebaseService.getMailBoxes().subscribe((res) => {
-      this.mailBoxes = res.map((m) => {
-        return {
-          ...(m.payload.doc.data() as {}),
-        };
-      });
-    });
+   
   }
+
+
 
   getData() {
     this.firebaseService.getData();
@@ -41,5 +39,11 @@ export class AppComponent implements OnInit {
 
   setData() {
     this.firebaseService.setData(this.writeInputValue);
+  }
+
+  @ViewChild('csvInput') csvInput!: ElementRef;
+
+  public readCSV() {
+    this.firebaseService.csvConector(this.csvInput.nativeElement.files[0]);
   }
 }

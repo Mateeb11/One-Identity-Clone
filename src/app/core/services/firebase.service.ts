@@ -4,37 +4,45 @@ import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
   doc,
-  getDoc,
   setDoc,
   collection,
+  query,
+  getDocs,
 } from 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Papa } from 'ngx-papaparse';
+import { ADAccountInterface } from '../../features/admin/models/adAccount.interface';
+import { MailBoxInterface } from '../../features/admin/models/mailBox.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirebaseService {
-   private app = initializeApp(environment.firebaseConfig);
-   private db = getFirestore(this.app);
-   private dbValue:string=''
+  app = initializeApp(environment.firebaseConfig);
+  db = getFirestore(this.app);
+  dbValue: string = '';
 
-  constructor(private angularFirestore:AngularFirestore) { }
+  constructor(private papa: Papa, private angularFirestore: AngularFirestore) {}
 
   async getData() {
-    const docRef = doc(this.db, 'Test', 'TestName');
-    const docSnap = await getDoc(docRef);
+    const mailBoxQ = query(collection(this.db, 'MailBox'));
+    const adsQ = query(collection(this.db, 'ADSAccount'));
 
-    if (docSnap.exists()) {
-      console.log('Document data:', docSnap.data());
-      this.dbValue = docSnap.data()['Name'];
-    } else {
-      console.log('No such document!');
-    }
+    console.log('MailBox Collection\n---------------------');
+    const mailBoxSnapshot = await getDocs(mailBoxQ);
+    mailBoxSnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, ' => ', doc.data());
+    });
+    console.log('ADSAccount Collection\n---------------------');
+    const adsSnapshot = await getDocs(adsQ);
+    adsSnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, ' => ', doc.data());
+    });
   }
 
-
-  async setData(writeInputValue:any) {
+  async setData(writeInputValue: any) {
     const citiesRef = collection(this.db, 'Test');
 
     await setDoc(doc(citiesRef, 'TestName'), {
@@ -43,16 +51,27 @@ export class FirebaseService {
 
     console.log(`Write value = ${writeInputValue.nativeElement.value}`);
   }
+  
+  public csvConector(file: any): void {
+    this.papa.parse(file, {
+      complete: async (result: any) => {
+        const mailBoxRef = collection(this.db, 'MailBox');
+        const adsRef = collection(this.db, 'ADSAccount');
 
-  getMailBoxes(){
-    return this.angularFirestore
-    .collection("MailBox")
-    .snapshotChanges();
+        for (let i = 1; i < result.data.length; i++) {
+          await setDoc(doc(mailBoxRef, result.data[i][0]), {
+            isActive: result.data[i][4] || true,
+            isCompanyEmployee: result.data[i][3] || true,
+            quota: result.data[i][3] == 'TRUE' ? 5 : 2,
+          });
+
+          await setDoc(doc(adsRef, result.data[i][0]), {
+            isActive: result.data[i][4] || true,
+            email: result.data[i][2],
+            fullName: result.data[i][1],
+          });
+        }
+      },
+    });
   }
-
-  createMailBox(){
-    return 
-  }
-
-
 }
