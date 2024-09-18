@@ -1,19 +1,41 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component} from '@angular/core';
 import { FirebaseService } from '../../core/services/firebase.service';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-hr',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './hr.component.html',
-  styleUrl: './hr.component.css'
+  styleUrl: './hr.component.css',
 })
 export class HrComponent {
-  constructor(private firebaseService: FirebaseService) {}
+  fileUploadForm: FormGroup;
 
-  @ViewChild('csvInput') csvInput!: ElementRef;
+  constructor(
+    private fb: FormBuilder,
+    private firebaseService: FirebaseService
+  ) {
+    this.fileUploadForm = this.fb.group({
+      fileInput: ['', Validators.required],
+    });
+  }
 
-  public readCSV() {
-    this.firebaseService.csvConector(this.csvInput.nativeElement.files[0]);
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+      this.fileUploadForm.patchValue({
+        fileInput: file 
+      });
+    }
+    console.log(this.fileUploadForm.get('fileInput')?.value);
+    this.firebaseService.csvConector(this.fileUploadForm.get('fileInput')?.value);
+
   }
 }
