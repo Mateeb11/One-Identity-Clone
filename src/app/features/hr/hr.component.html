@@ -1,12 +1,10 @@
 <div class="row gy-2 border border-1 rounded p-3 w-50">
   <label for="csvFile" class="form-label px-0"
     >Please upload the CSV file</label>
-  <form [formGroup]="fileUploadForm">
     <input
       type="file"
       id="csvFile"
       class="form-control w-25"
       (change)="onFileChange($event)"
     />
-  </form>
 </div>
