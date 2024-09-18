@@ -51,26 +51,26 @@ export class FirebaseService {
 
     console.log(`Write value = ${writeInputValue.nativeElement.value}`);
   }
-  
+
   public csvConector(file: any): void {
     this.papa.parse(file, {
       complete: async (result: any) => {
         const mailBoxRef = collection(this.db, 'MailBox');
         const adsRef = collection(this.db, 'ADSAccount');
 
-        for (let i = 1; i < result.data.length; i++) {
-          await setDoc(doc(mailBoxRef, result.data[i][0]), {
-            isActive: result.data[i][4] || true,
-            isCompanyEmployee: result.data[i][3] || true,
-            quota: result.data[i][3] == 'TRUE' ? 5 : 2,
+        result.data.slice(1).forEach(async (user: any) => {
+          await setDoc(doc(mailBoxRef, user[0]), {
+            isActive: user[4] || true,
+            isCompanyEmployee: user[3] || true,
+            quota: user[3] == 'TRUE' ? 5 : 2,
           });
 
-          await setDoc(doc(adsRef, result.data[i][0]), {
-            isActive: result.data[i][4] || true,
-            email: result.data[i][2],
-            fullName: result.data[i][1],
+          await setDoc(doc(adsRef, user[0]), {
+            isActive: user[4] || true,
+            email: user[2],
+            fullName: user[1],
           });
-        }
+        });
       },
     });
   }
