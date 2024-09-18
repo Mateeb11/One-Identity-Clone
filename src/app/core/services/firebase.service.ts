@@ -11,8 +11,6 @@ import {
 } from 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Papa } from 'ngx-papaparse';
-import { ADAccountInterface } from '../../features/admin/models/adAccount.interface';
-import { MailBoxInterface } from '../../features/admin/models/mailBox.interface';
 
 @Injectable({
   providedIn: 'root',

@@ -15,7 +15,7 @@ export class MailboxComponent implements OnInit {
   constructor(private mailBoxService: MailBoxService) {}
   ngOnInit(): void {
     this.getMailBoxes();
-    this.createMailBox();
+    // this.createMailBox();
 
   }
 
