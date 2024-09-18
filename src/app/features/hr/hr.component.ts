@@ -17,6 +17,7 @@ export class HrComponent {
     if (input.files && input.files.length) {
       const file = input.files[0];
       this.firebaseService.csvConector(file);
+      input.value=''
     }
   }
 }
