@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from '../../core/services/firebase.service';
-import {
-  ReactiveFormsModule
-} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-hr',

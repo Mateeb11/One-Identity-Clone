@@ -1,20 +1,21 @@
-<table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Mobily Employee</th>
-        <th scope="col">Quota</th>
-        <th scope="col">Active</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for(mailBox of mailBoxes; track mailBox ; let i = $index){
-      <tr>
-        <td>{{ i + 1 }}</td>
-        <td>{{ mailBox.isCompanyEmployee }}</td>
-        <td>{{ mailBox.quota }}</td>
-        <td>{{ mailBox.isActive }}</td>
-      </tr>
-      }
-    </tbody>
-  </table>
+<h3>MailBox System</h3>
+<table class="table table-bordered table-hover rounded">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Mobily Employee</th>
+      <th scope="col">Quota</th>
+      <th scope="col">Active</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(mailBox of mailBoxes; track mailBox ; let i = $index){
+    <tr>
+      <td>{{ mailBox.id }}</td>
+      <td>{{ mailBox.isCompanyEmployee }}</td>
+      <td>{{ mailBox.quota }}</td>
+      <td>{{ mailBox.isActive }}</td>
+    </tr>
+    }
+  </tbody>
+</table>

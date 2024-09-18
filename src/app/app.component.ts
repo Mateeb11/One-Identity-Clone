@@ -12,17 +12,5 @@ import { HrComponent } from "./features/hr/hr.component";
   styleUrl: './app.component.css',
 })
 export class AppComponent  {
-  constructor(private firebaseService: FirebaseService) {}
-
-  getData() {
-    this.firebaseService.getData();
-  }
-
-  @ViewChild('writeInputValue') writeInputValue!: ElementRef;
-
-  setData() {
-    this.firebaseService.setData(this.writeInputValue);
-  }
-
 
 }
