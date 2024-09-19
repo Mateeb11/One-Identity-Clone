@@ -16,7 +16,7 @@ export class HrComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
       const file = input.files[0];
-      this.firebaseService.csvConector(file);
+      this.firebaseService.csvConnector(file);
       input.value=''
     }
   }

@@ -51,7 +51,7 @@ export class FirebaseService {
     console.log(`Write value = ${writeInputValue.nativeElement.value}`);
   }
 
-  public csvConector(file: any): void {
+  public csvConnector(file: any): void {
     this.papa.parse(file, {
       skipEmptyLines: true,
       complete: async (result: any) => {
@@ -82,7 +82,7 @@ export class FirebaseService {
               quota: user[3] == 'TRUE' ? 5 : 2,
             });
           }
-          
+
           if (this.isValidEmail(user[2]) && this.isValidName(user[1])) {
             await setDoc(doc(adsRef, user[0]), {
               isActive: true,
