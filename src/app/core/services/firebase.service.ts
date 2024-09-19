@@ -75,20 +75,25 @@ export class FirebaseService {
 
         // Add or update firebase documents with csv file data
         result.data.slice(1).forEach(async (user: any) => {
-          if (this.validateId(user[0]) && this.checkBoolean(user[3])) {
+          if (
+            this.validateId(user[0]) &&
+            this.checkBoolean(user[3]) &&
+            this.isValidEmail(user[2]) &&
+            this.isValidName(user[1])
+          ) {
             await setDoc(doc(mailBoxRef, user[0]), {
               isActive: true,
               isCompanyEmployee: user[3] || true,
               quota: user[3] == 'TRUE' ? 5 : 2,
             });
-          }
 
-          if (this.isValidEmail(user[2]) && this.isValidName(user[1])) {
             await setDoc(doc(adsRef, user[0]), {
               isActive: true,
               email: user[2],
               fullName: user[1],
             });
+          } else {
+            console.log('Error');
           }
         });
       },
