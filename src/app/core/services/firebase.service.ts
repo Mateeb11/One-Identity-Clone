@@ -81,8 +81,8 @@ export class FirebaseService {
               isCompanyEmployee: user[3] || true,
               quota: user[3] == 'TRUE' ? 5 : 2,
             });
-
-            console.log();
+            console.log(user[3]);
+            console.log(this.checkBoolean(user[3]));
 
             await setDoc(doc(adsRef, user[0]), {
               isActive: true,
@@ -99,4 +99,19 @@ export class FirebaseService {
     const digits = /^\d+$/;
     return digits.test(value);
   }
+
+  checkBoolean(value: string) {
+    const normalizedValue = String(value)?.toLowerCase();
+    return normalizedValue === 'true' || normalizedValue === 'false';
+  }
+
+  isValidEmail(email: any) {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+  }
+
+  isValidName(name:any) {
+    const namePattern = /^[A-Za-z' -]+$/; 
+    return namePattern.test(name);
+}
 }
