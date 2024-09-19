@@ -110,8 +110,8 @@ export class FirebaseService {
     return emailPattern.test(email);
   }
 
-  isValidName(name:any) {
-    const namePattern = /^[A-Za-z' -]+$/; 
+  isValidName(name: any) {
+    const namePattern = /^[A-Za-z' -]+$/;
     return namePattern.test(name);
-}
+  }
 }
