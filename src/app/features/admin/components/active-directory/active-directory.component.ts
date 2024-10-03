@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ADAccountInterface } from '../../models/adAccount.interface';
 import { ActiveDirectoryService } from '../../data-access/active-directory.service';
-import { ModalComponent } from '../../../../shared/ui/modal/modal.component';
 
 @Component({
   selector: 'app-active-directory',
   standalone: true,
-  imports: [ModalComponent],
   templateUrl: './active-directory.component.html',
   styleUrl: './active-directory.component.css',
 })
 export class ActiveDirectoryComponent implements OnInit {
   adRecords: ADAccountInterface[] = [];
-  isModalOpen:boolean= true;
+  isModalOpen: boolean = true;
 
   constructor(private adService: ActiveDirectoryService) {}
   ngOnInit(): void {
