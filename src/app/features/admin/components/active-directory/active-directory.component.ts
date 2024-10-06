@@ -11,12 +11,10 @@ import { ActiveDirectoryService } from '../../data-access/active-directory.servi
 })
 export class ActiveDirectoryComponent implements OnInit {
   adRecords: ADAccountInterface[] = [];
-  // isModalOpen:boolean= true;
 
   constructor(private adService: ActiveDirectoryService) {}
   ngOnInit(): void {
     this.getAdRecords();
-    // this.updateAdAccount();
   }
 
   getAdRecords() {
@@ -29,18 +27,6 @@ export class ActiveDirectoryComponent implements OnInit {
       });
     });
   }
-
-
-  // updateAdAccount() {
-  //   let adAccount: ADAccountInterface = {
-  //     id: '123424',
-  //     email: 'dev',
-  //     fullName: ' dev dev',
-  //     isActive: true,
-  //   };
-
-  //   this.adService.updateAdAccount(adAccount);
-  // }
 
  
 }

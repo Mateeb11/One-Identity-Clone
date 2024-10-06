@@ -12,7 +12,7 @@
     @for(mailBox of mailBoxes; track mailBox ; let i = $index){
     <tr>
       <td>{{ mailBox.id }}</td>
-      <td>{{ mailBox.isCompanyEmployee }}</td>
+      <td class="lowerCase">{{ mailBox.isCompanyEmployee }}</td>
       <td>{{ mailBox.quota }}</td>
       <td>{{ mailBox.isActive }}</td>
     </tr>
