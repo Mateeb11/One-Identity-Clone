@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ADAccountInterface } from '../../models/adAccount.interface';
 import { ActiveDirectoryService } from '../../data-access/active-directory.service';
-import { ModalComponent } from '../../../../shared/ui/modal/modal.component';
 
 @Component({
   selector: 'app-active-directory',
   standalone: true,
-  imports: [ModalComponent],
+  imports: [],
   templateUrl: './active-directory.component.html',
   styleUrl: './active-directory.component.css',
 })
 export class ActiveDirectoryComponent implements OnInit {
   adRecords: ADAccountInterface[] = [];
-  isModalOpen:boolean= true;
+  // isModalOpen:boolean= true;
 
   constructor(private adService: ActiveDirectoryService) {}
   ngOnInit(): void {
     this.getAdRecords();
-    this.updateAdAccount();
+    // this.updateAdAccount();
   }
 
   getAdRecords() {
@@ -31,26 +30,17 @@ export class ActiveDirectoryComponent implements OnInit {
     });
   }
 
-  deleteAdRecord(id: string) {
-    this.adService.deleteAdRecord(id);
-  }
 
-  updateAdAccount() {
-    let adAccount: ADAccountInterface = {
-      id: '123424',
-      email: 'dev',
-      fullName: ' dev dev',
-      isActive: true,
-    };
+  // updateAdAccount() {
+  //   let adAccount: ADAccountInterface = {
+  //     id: '123424',
+  //     email: 'dev',
+  //     fullName: ' dev dev',
+  //     isActive: true,
+  //   };
 
-    this.adService.updateAdAccount(adAccount);
-  }
+  //   this.adService.updateAdAccount(adAccount);
+  // }
 
-  openModal() {
-    this.isModalOpen = true;
-  }
-
-  closeModal() {
-    this.isModalOpen = false;
-  }
+ 
 }

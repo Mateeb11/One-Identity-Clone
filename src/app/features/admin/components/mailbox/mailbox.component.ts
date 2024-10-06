@@ -15,10 +15,7 @@ export class MailboxComponent implements OnInit {
   constructor(private mailBoxService: MailBoxService) {}
   ngOnInit(): void {
     this.getMailBoxes();
-    // this.createMailBox();
-
   }
-
 
   getMailBoxes() {
     this.mailBoxService.getCollection().subscribe((res) => {
@@ -30,21 +27,4 @@ export class MailboxComponent implements OnInit {
       });
     });
   }
-
-
-  deleteMailBox(id:string){
-    this.mailBoxService.deleteMailBox(id)
-  }
-
-  createMailBox(){
-    let mailBox:MailBoxInterface={
-      id: 'joiiob',
-      isActive: false,
-      isCompanyEmployee: false,
-      quota: 0
-    }
-
-    this.mailBoxService.createMailBox(mailBox)
-  }
-
 }

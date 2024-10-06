@@ -13,34 +13,4 @@ export class ActiveDirectoryService {
     return this.angularFirestore.collection('ADSAccount').snapshotChanges();
   }
 
-  deleteAdRecord(id: string) {
-    return this.angularFirestore.collection('ADSAccount').doc(id).delete();
-  }
-
-  createAdRecord(adAccount: ADAccountInterface) {
-    return new Promise<any>((resolve, reject) => {
-      this.angularFirestore
-        .collection('ADSAccount')
-        .add(adAccount)
-        .then(
-          (res) => {
-            console.log(res);
-          },
-          (error) => {
-            reject(error);
-          }
-        );
-    });
-  }
-
-  
-  updateAdAccount(adAccount: ADAccountInterface) {
-    return this.angularFirestore
-      .collection('ADSAccount')
-      .doc(adAccount.id)
-      .update({
-        ...adAccount,
-      });
-  }
-
 }

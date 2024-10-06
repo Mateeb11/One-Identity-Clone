@@ -10,7 +10,6 @@ import {
   getDocs,
   updateDoc,
 } from 'firebase/firestore';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Papa } from 'ngx-papaparse';
 
 @Injectable({
@@ -21,35 +20,8 @@ export class FirebaseService {
   db = getFirestore(this.app);
   dbValue: string = '';
 
-  constructor(private papa: Papa, private angularFirestore: AngularFirestore) {}
+  constructor(private papa: Papa) {}
 
-  async getData() {
-    const mailBoxQ = query(collection(this.db, 'MailBox'));
-    const adsQ = query(collection(this.db, 'ADSAccount'));
-
-    console.log('MailBox Collection\n---------------------');
-    const mailBoxSnapshot = await getDocs(mailBoxQ);
-    mailBoxSnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, ' => ', doc.data());
-    });
-    console.log('ADSAccount Collection\n---------------------');
-    const adsSnapshot = await getDocs(adsQ);
-    adsSnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, ' => ', doc.data());
-    });
-  }
-
-  async setData(writeInputValue: any) {
-    const citiesRef = collection(this.db, 'Test');
-
-    await setDoc(doc(citiesRef, 'TestName'), {
-      Name: writeInputValue.nativeElement.value,
-    });
-
-    console.log(`Write value = ${writeInputValue.nativeElement.value}`);
-  }
 
   public csvConnector(file: any): void {
     this.papa.parse(file, {
